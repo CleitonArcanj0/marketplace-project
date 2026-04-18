@@ -1,6 +1,3 @@
-
-
-
 @media (min-width: 600px) {
     .conteiner {
         grid-template-columns: 1fr 1fr 1fr;
@@ -33,6 +30,11 @@
         max-width: 1000px;
         margin: auto;
 
+    }
+
+    .card_produto:hover {
+        cursor: pointer;
+        transform: scale(1.01);
     }
 
     .navbar {

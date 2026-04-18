@@ -1,5 +1,6 @@
+
 const conteiner = document.querySelector(".conteiner"),
-    pesquisa = document.querySelector(".pesquisarProdutos")
+    pesquisa = document.querySelector(".pesquisarProdutos") 
 
 async function buscarProdutos() {
     try {
@@ -57,7 +58,7 @@ async function pesquisarProdutos() {
 
         let html = dados.products.map(p => {
             return `
-            <div class="card_produto">
+            <div class="card_produto" >
                     <img src="${p.thumbnail}" alt="img" class="imagem_produto">
                     <h3 class="titulo_produto">${p.title}</h3>
                     <p class="descricao">${p.description}</p>
