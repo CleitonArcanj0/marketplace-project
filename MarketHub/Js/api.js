@@ -1,6 +1,6 @@
 
 const conteiner = document.querySelector(".conteiner"),
-    pesquisa = document.querySelector(".pesquisarProdutos") 
+    pesquisa = document.querySelector(".pesquisarProdutos")
 
 async function buscarProdutos() {
     try {
@@ -73,4 +73,32 @@ async function pesquisarProdutos() {
     }
 }
 
+async function filtrarCategoria(params) {
+    try {
+        const categoria = await fetch(`https://dummyjson.com/products/category/${params}`)
+        if (!categoria.ok) {
+            console.log("error na rede")
+        }
+        const dados = await categoria.json()
+
+        let html = ''
+        dados.products.forEach(element => {
+            html += `
+             <div class="card_produto">
+                <img src="${element.thumbnail}" alt="img" class="imagem_produto">
+                <h3 class="titulo_produto">${element.title}</h3>
+                <p class="descricao">${element.description}</p>
+                <p class="preco">R$ ${element.price.toFixed(2)}</p>
+            </div>
+            `
+        });
+
+        conteiner.innerHTML = html
+
+    } catch (error) {
+        console.log(`Erro ao buscar dados: ${error}`)
+
+    }
+
+}
 buscarProdutos()
