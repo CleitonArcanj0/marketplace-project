@@ -1,5 +1,5 @@
 
-const conteiner = document.querySelector(".conteiner"),
+const conteiner = document.querySelector(".container"),
     pesquisa = document.querySelector(".pesquisarProdutos")
 
 async function buscarProdutos() {
