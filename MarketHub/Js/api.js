@@ -1,5 +1,5 @@
 
-const conteiner = document.querySelector(".container"),
+const conteiner = document.querySelector("#cards"),
     pesquisa = document.querySelector(".pesquisarProdutos")
 
 async function buscarProdutos() {
@@ -20,6 +20,8 @@ async function buscarProdutos() {
                 <h3 class="titulo_produto">${element.title}</h3>
                 <p class="descricao">${element.description}</p>
                 <p class="preco">R$ ${element.price.toFixed(2)}</p>
+                <button class="btn-ver-mais">Ver mais</button>
+
             </div>
             `
         });
@@ -55,7 +57,6 @@ async function pesquisarProdutos() {
             return
         }
 
-
         let html = dados.products.map(p => {
             return `
             <div class="card_produto" >
@@ -63,7 +64,8 @@ async function pesquisarProdutos() {
                     <h3 class="titulo_produto">${p.title}</h3>
                     <p class="descricao">${p.description}</p>
                     <p class="preco">R$ ${p.price.toFixed(2)}</p>
-            </div>`;
+                  <button class="btn-ver-mais">Ver mais</button>
+                     </div>`;
         }).join("");
 
         conteiner.innerHTML = html
@@ -89,6 +91,7 @@ async function filtrarCategoria(params) {
                 <h3 class="titulo_produto">${element.title}</h3>
                 <p class="descricao">${element.description}</p>
                 <p class="preco">R$ ${element.price.toFixed(2)}</p>
+                 <button class="btn-ver-mais">Ver mais</button>
             </div>
             `
         });

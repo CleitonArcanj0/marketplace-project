@@ -14,9 +14,23 @@
 
 <body>
     <header class="navbar">
+
         <div class="logo">
+            <i class="fa-solid fa-bars fa-2xl" onclick="toggleMenu()"></i>
+            <i class="fa-solid fa-bag-shopping fa-2xl"></i>
             <h1>MarketHub</h1>
         </div>
+        <div class="info-users">
+            <div class="perfil-usuario">
+                <i class="fa-solid fa-user fa-2xl"></i>
+                <h4>Minha conta</h4>
+            </div>
+
+            <div class="carrinho-compras">
+                <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+            </div>
+        </div>
+
         <div class="areaBusca">
             <span class="material-symbols-outlined">
                 search
@@ -24,40 +38,46 @@
             <label for="pesquisar" class="sr-only">Buscar Produtos</label>
             <input type="text" placeholder="Buscar Produtos" id="pesquisar" class="pesquisarProdutos">
         </div>
-        <nav class="opcao">
-            <div id="titulo-menu" class="menu-titulo" onclick="toggleMenu()">
-                Categorias <i class="fa-solid fa-angle-down"></i>
-            </div>
-            <ul id="listaCategorias" class="categorias">
-                <li onclick="filtrarCategoria('beauty')">Beleza</li>
-                <li onclick="filtrarCategoria('fragrances')">Fragrâncias</li>
-                <li onclick="filtrarCategoria('furniture')">Móveis</li>
-                <li onclick="filtrarCategoria('groceries')">Mercado</li>
-                <li onclick="filtrarCategoria('home-decoration')">Decoração para Casa</li>
-                <li onclick="filtrarCategoria('kitchen-accessories')">Acessórios de Cozinha</li>
-                <li onclick="filtrarCategoria('laptops')">Notebooks</li>
-                <li onclick="filtrarCategoria('mens-shirts')">Camisas Masculinas</li>
-                <li onclick="filtrarCategoria('mens-shoes')">Sapatos Masculinos</li>
-                <li onclick="filtrarCategoria('mens-watches')">Relógios Masculinos</li>
-                <li onclick="filtrarCategoria('mobile-accessories')">Acessórios para Celular</li>
-                <li onclick="filtrarCategoria('motorcycle')">Motocicletas</li>
-                <li onclick="filtrarCategoria('skin-care')">Cuidados com a Pele</li>
-                <li onclick="filtrarCategoria('smartphones')">Smartphones</li>
-                <li onclick="filtrarCategoria('sports-accessories')">Acessórios Esportivos</li>
-                <li onclick="filtrarCategoria('sunglasses')">Óculos de Sol</li>
-                <li onclick="filtrarCategoria('tablets')">Tablets</li>
-                <li onclick="filtrarCategoria('tops')">Blusas</li>
-                <li onclick="filtrarCategoria('vehicle')">Veículos</li>
-                <li onclick="filtrarCategoria('womens-bags')">Bolsas Femininas</li>
-                <li onclick="filtrarCategoria('womens-dresses')">Vestidos Femininos</li>
-                <li onclick="filtrarCategoria('womens-jewellery')">Joias Femininas</li>
-                <li onclick="filtrarCategoria('womens-shoes')">Sapatos Femininos</li>
-                <li onclick="filtrarCategoria('womens-watches')">Relógios Femininos</li>
-            </ul>
-        </nav>
+
     </header>
-    <main class="container"></main>
-    <footer></footer>
+
+
+    <main class="container">
+            <aside class="sidebar">
+                <ul id="listaCategorias" class="categorias">
+                    <li onclick="filtrarCategoria('beauty')">Beleza</li>
+                    <li onclick="filtrarCategoria('fragrances')">Fragrâncias</li>
+                    <li onclick="filtrarCategoria('furniture')">Móveis</li>
+                    <li onclick="filtrarCategoria('groceries')">Mercado</li>
+                    <li onclick="filtrarCategoria('home-decoration')">Decoração para Casa</li>
+                    <li onclick="filtrarCategoria('kitchen-accessories')">Acessórios de Cozinha</li>
+                    <li onclick="filtrarCategoria('laptops')">Notebooks</li>
+                    <li onclick="filtrarCategoria('mens-shirts')">Camisas Masculinas</li>
+                    <li onclick="filtrarCategoria('mens-shoes')">Sapatos Masculinos</li>
+                    <li onclick="filtrarCategoria('mens-watches')">Relógios Masculinos</li>
+                    <li onclick="filtrarCategoria('mobile-accessories')">Acessórios para Celular</li>
+                    <li onclick="filtrarCategoria('motorcycle')">Motocicletas</li>
+                    <li onclick="filtrarCategoria('skin-care')">Cuidados com a Pele</li>
+                    <li onclick="filtrarCategoria('smartphones')">Smartphones</li>
+                    <li onclick="filtrarCategoria('sports-accessories')">Acessórios Esportivos</li>
+                    <li onclick="filtrarCategoria('sunglasses')">Óculos de Sol</li>
+                    <li onclick="filtrarCategoria('tablets')">Tablets</li>
+                    <li onclick="filtrarCategoria('tops')">Blusas</li>
+                    <li onclick="filtrarCategoria('vehicle')">Veículos</li>
+                    <li onclick="filtrarCategoria('womens-bags')">Bolsas Femininas</li>
+                    <li onclick="filtrarCategoria('womens-dresses')">Vestidos Femininos</li>
+                    <li onclick="filtrarCategoria('womens-jewellery')">Joias Femininas</li>
+                    <li onclick="filtrarCategoria('womens-shoes')">Sapatos Femininos</li>
+                    <li onclick="filtrarCategoria('womens-watches')">Relógios Femininos</li>
+                </ul>
+            </aside>
+            <section id="cards" class="produtos">
+            
+            </section>
+          </main>
+    <footer>
+        <p>Página criada Por Cleiton Arcanjo</p>
+    </footer>
     <script src="Js/api.js" defer></script>
     <script src="Js/script.js" defer></script>
 </body>
