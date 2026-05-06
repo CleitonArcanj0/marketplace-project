@@ -1,32 +1,18 @@
 
-const conteiner = document.querySelector("#cards"),
-    pesquisa = document.querySelector(".pesquisarProdutos")
 
-async function buscarProdutos() {
+
+export async function buscarProdutos() {
     try {
         const produto = await fetch("https://dummyjson.com/products")
         if (!produto.ok) {
-            console.log("error na rede")
+            console.log("erro na rede")
         }
         const dados = await produto.json()
 
         console.log(dados)
 
-        let html = ''
-        dados.products.forEach(element => {
-            html += `
-             <div class="card_produto">
-                <img src="${element.thumbnail}" alt="img" class="imagem_produto">
-                <h3 class="titulo_produto">${element.title}</h3>
-                <p class="descricao">${element.description}</p>
-                <p class="preco">R$ ${element.price.toFixed(2)}</p>
-                <button class="btn-ver-mais">Ver mais</button>
+        return dados
 
-            </div>
-            `
-        });
-
-        conteiner.innerHTML = html
 
     } catch (error) {
         console.log(`Erro ao buscar dados: ${error}`)
@@ -34,17 +20,7 @@ async function buscarProdutos() {
 
 }
 
-let time = null
-pesquisa.addEventListener("keyup", () => {
-    clearTimeout(time)
-
-    time = setTimeout(() => {
-        pesquisarProdutos()
-    }, 500)
-})
-
-async function pesquisarProdutos() {
-    const produto = pesquisa.value
+export async function pesquisarProdutos(produto) {
     try {
         const resposta = await fetch(`https://dummyjson.com/products/search?q=${produto}`)
         if (!resposta.ok) {
@@ -53,55 +29,67 @@ async function pesquisarProdutos() {
         const dados = await resposta.json()
 
         if (dados.products.length == 0) {
-            conteiner.innerHTML = `<p>Nenhum produto encontrado!</p>`
-            return
+            console.log("Nenhum produto encontrado!")
+            return ''
         }
+        console.log(dados)
+        return dados
 
-        let html = dados.products.map(p => {
-            return `
-            <div class="card_produto" >
-                    <img src="${p.thumbnail}" alt="img" class="imagem_produto">
-                    <h3 class="titulo_produto">${p.title}</h3>
-                    <p class="descricao">${p.description}</p>
-                    <p class="preco">R$ ${p.price.toFixed(2)}</p>
-                  <button class="btn-ver-mais">Ver mais</button>
-                     </div>`;
-        }).join("");
-
-        conteiner.innerHTML = html
 
     } catch (error) {
         console.log(`Erro ao buscar dados: ${error}`)
     }
 }
 
-async function filtrarCategoria(params) {
+export async function filtrarCategoria(produto) {
     try {
-        const categoria = await fetch(`https://dummyjson.com/products/category/${params}`)
+        const categoria = await fetch(`https://dummyjson.com/products/category/${produto}`)
         if (!categoria.ok) {
-            console.log("error na rede")
+            console.log("erro na rede")
+            return
         }
         const dados = await categoria.json()
 
-        let html = ''
-        dados.products.forEach(element => {
-            html += `
-             <div class="card_produto">
-                <img src="${element.thumbnail}" alt="img" class="imagem_produto">
-                <h3 class="titulo_produto">${element.title}</h3>
-                <p class="descricao">${element.description}</p>
-                <p class="preco">R$ ${element.price.toFixed(2)}</p>
-                 <button class="btn-ver-mais">Ver mais</button>
-            </div>
-            `
-        });
-
-        conteiner.innerHTML = html
-
+        return dados
     } catch (error) {
         console.log(`Erro ao buscar dados: ${error}`)
 
     }
 
 }
-buscarProdutos()
+export async function descricaoCompleta(produto) {
+
+    try {
+        const resposta = await fetch(`https://dummyjson.com/products/search?q=${produto}`)
+
+        if (!resposta.ok) {
+            console.log("Erro na requisição!")
+            return
+        }
+
+        const dados = await resposta.json()
+        return dados
+
+
+    } catch (error) {
+        console.log(`Erro ao buscar dados ${error}`)
+    }
+
+}
+
+export async function categorias(){
+    try {
+        const resposta = await fetch('https://dummyjson.com/products/category-list')
+
+        if(!resposta.ok){
+            console.log("Erro na requisição")
+            return
+        }
+        const dados = await resposta.json()
+        return dados
+        console.log(dados)
+
+    } catch (error) {
+        console.log(`Erro ao buscar dados ${error}`)
+    }
+}

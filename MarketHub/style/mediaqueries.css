@@ -1,4 +1,3 @@
-
 @media (min-width: 530px) {
     .navbar {
         grid-template-columns: 1fr 2fr 1fr;
@@ -25,7 +24,7 @@
 
     }
 
-  
+
 }
 
 @media (min-width: 767px) {
@@ -35,6 +34,7 @@
         padding: 15px;
         gap: 15px;
     }
+
 
     .logo {
         grid-area: 1/1/2/2;
@@ -64,5 +64,34 @@
         right: 357px;
 
     }
+
+    .produtos {
+        grid-template-rows: auto;
+    }
+
+    .box-detail-product {
+        grid-column: 2/-2;
+        max-width: 100%;
+        grid-template-columns: repeat(2, 3fr);
+
+    }
+
+    .details {
+        margin-top: 23px;
+    }
+
+    .rating {
+        grid-column: 1/2;
+    }
+
+    .title-product,
+    .rating {
+        grid-column: 2/-1;
+    }
+
+    .img-product {
+        grid-column: 1/2;
+    }
+
 
 }
