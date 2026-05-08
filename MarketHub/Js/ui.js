@@ -21,26 +21,26 @@ export function renderProducts(container, produtos) {
 
 
 
-export function renderPageDetails(container, produtos) {
+export function renderPageDetails(container, produto) {
     
-    let html = produtos.map(p => {
-        return `
+   const html =  `
             <section id="detail-product" class="box-detail-product">
                 <!--titulo-->
-                <h3 class="title-product">${p.title}</h3>
-                <div class="rating" data-rating="${p.rating}">${p.rating}</div>
+                <h3 class="title-product">${produto.title}</h3>
+
+                <div class="rating" data-rating="${produto.rating}">${produto.rating}</div>
 
                 <div class="img-product">
                     <!--imagem-->
-                    <img src="${p.thumbnail}" alt="imagem do produto" srcset="">
+                    <img src="${produto.thumbnail}" alt="imagem do produto" srcset="">
                 </div>
                 
                 <div class="details">
             
                     <!--preço-->
-                    <p class="preco-details">R$ ${p.price.toFixed(2)}</p>
+                    <p class="preco-details">R$ ${produto.price.toFixed(2)}</p>
                     
-                    <p class="descricao-completa">${p.description}</p>
+                    <p class="descricao-completa">${produto.description}</p>
                     
                     <ul class="estoque">
                         <li><img src="./img/check_circle_24dp_75FB4C_FILL0_wght400_GRAD0_opsz24.svg"alt="vericacao-svg" srcset=""></li>
@@ -55,8 +55,8 @@ export function renderPageDetails(container, produtos) {
 
                 </div>
                 </section>
-                `;
-    }).join("");
+                `
+    
 
     container.innerHTML = html
 

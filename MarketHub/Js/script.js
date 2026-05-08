@@ -1,71 +1,122 @@
 import { buscarProdutos, filtrarCategoria, pesquisarProdutos, descricaoCompleta, categorias } from "./api.js";
 import { renderPageDetails, renderProducts, renderSidebar, renderStars } from "./ui.js";
 
-const container_main = document.querySelector("#container-main"),
-    container_cards = document.querySelector("#cards"),
-    pesquisa = document.querySelector(".pesquisarProdutos"),
-    icone_menu_lateral = document.querySelector(".fa-bars"),
-    menu_categorias = document.querySelector(".categorias")
+const containerCards = document.querySelector("#cards"),
+    pesquisaInput = document.querySelector(".pesquisarProdutos"),
+    iconeMenu = document.querySelector(".fa-bars"),
+    menuCategorias = document.querySelector(".categorias"),
+    container = document.querySelector(".container");
 
 
 
 
 async function init() {
-    const dados = await buscarProdutos()
-    const lista_categorias = await categorias()
-    renderProducts(container_cards, dados.products)
-    renderSidebar(menu_categorias, lista_categorias)
+    await carregarProdutos()
+    await carregarCategorias()
 }
 
 init()
 
-container_cards.addEventListener('click', async (e) => {
+
+
+async function carregarProdutos() {
+    const dados = await buscarProdutos()
+    renderProducts(containerCards, dados.products)
+
+}
+async function carregarCategorias() {
+    const lista_categorias = await categorias()
+    renderSidebar(menuCategorias, lista_categorias)
+
+}
+
+async function carregarDetalhesDoProduto(nomeDoProduto) {
+    const produto = await descricaoCompleta(nomeDoProduto)
+    renderPageDetails(containerCards, produto.products[0])
+    atualizaStars()
+}
+
+
+async function carregarProdutosCategoria(nomeDoProduto) {
+    const produto = await filtrarCategoria(nomeDoProduto)
+    renderProducts(containerCards, produto.products)
+
+}
+
+async function pesquisar(nomeDoProduto) {
+    const produtos = await pesquisarProdutos(nomeDoProduto)
+    renderProducts(containerCards, produtos.products)
+}
+
+
+
+
+containerCards.addEventListener('click', handleProdutosClick)
+menuCategorias.addEventListener('click', handleCategoriaClick)
+pesquisaInput.addEventListener('keyup', handlePesquisar)
+iconeMenu.addEventListener('click', toggleIconeMenu)
+
+
+
+async function handleProdutosClick(e) {
+
     if (e.target.classList.contains("btn-ver-mais")) {
         const nome = e.target.dataset.nome;
-        const produto = await descricaoCompleta(nome)
-
-        renderPageDetails(container_cards, produto.products)
+        await carregarDatalhesDoProduto(nome)
 
     }
-    atualizaStars()
-})
 
-menu_categorias.addEventListener("click", async (e) => {
+}
+
+async function handleCategoriaClick(e) {
     const liClicado = e.target.closest('li')
 
+    if (!liClicado) return
 
-    if (liClicado) {
-        const nome = liClicado.innerText;
-        const produto = await filtrarCategoria(nome)
-        renderProducts(container_cards, produto.products)
+    const nomeCategoria = liClicado.innerText;
+    await carregarProdutosCategoria(nomeCategoria)
 
-    }
-})
+}
 
-
-let time = null
-pesquisa.addEventListener('keyup', (e) => {
+function handlePesquisar(e) {
     const nomeProduto = e.target.value;
-    clearTimeout(time)
+    pesquisarComDelay(nomeProduto)
+}
 
-    time = setTimeout(async () => {
-        const dados = await pesquisarProdutos(nomeProduto)
-        renderProducts(container_cards, dados.products)
-
-    }, 500)
-})
-
-
-
-icone_menu_lateral.addEventListener('click', () => {
+async function toggleIconeMenu() {
     document.querySelector(".container").classList.toggle("menu-aberto")
-})
 
+
+}
+
+const pesquisarComDelay = debouce( async (nomeProduto) => {
+    await pesquisar(nomeProduto)
+}, 500)
+
+
+function debouce(callback, delay) {
+
+    let timer
+
+    return (...args) => {
+
+        clearTimeout(timer)
+
+        setTimeout(() => {
+
+            callback(...args)
+
+        }, delay)
+    }
+
+}
 
 
 function atualizaStars() {
     const ratings = document.querySelectorAll(".rating")
+
     ratings.forEach(element => {
+
         const rating = parseFloat(element.dataset.rating)
         const maxStars = 5;
 
