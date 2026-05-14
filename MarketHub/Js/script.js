@@ -1,12 +1,15 @@
 import { buscarProdutos, filtrarCategoria, pesquisarProdutos, descricaoCompleta, categorias } from "./api.js";
-import { renderPageDetails, renderProducts, renderSidebar, renderStars } from "./ui.js";
+
+import { renderProducts, renderSidebar } from "./ui/productsUI.js";
+import { renderPageDetails, renderStars } from "./ui/detailsUI.js";
+import { renderCheckout } from "./ui/checkoutUI.js";
+
 
 const containerCards = document.querySelector("#cards"),
     pesquisaInput = document.querySelector(".pesquisarProdutos"),
     iconeMenu = document.querySelector(".fa-bars"),
     menuCategorias = document.querySelector(".categorias"),
     container = document.querySelector(".container");
-
 
 
 
@@ -48,6 +51,10 @@ async function pesquisar(nomeDoProduto) {
     renderProducts(containerCards, produtos.products)
 }
 
+async function carregarCheckout(nomeDoProduto) {
+    const produto = await descricaoCompleta(nomeDoProduto)
+    renderCheckout(containerCards, produto.products[0])
+}
 
 
 
@@ -56,15 +63,18 @@ menuCategorias.addEventListener('click', handleCategoriaClick)
 pesquisaInput.addEventListener('keyup', handlePesquisar)
 iconeMenu.addEventListener('click', toggleIconeMenu)
 
-
-
 async function handleProdutosClick(e) {
 
     if (e.target.classList.contains("btn-ver-mais")) {
         const nome = e.target.dataset.nome;
-        await carregarDatalhesDoProduto(nome)
+        await carregarDetalhesDoProduto(nome)
+
+    }else if (e.target.classList.contains("button-buy")) {
+        const nome = e.target.dataset.nome;
+        await carregarCheckout(nome)
 
     }
+  
 
 }
 
@@ -89,7 +99,7 @@ async function toggleIconeMenu() {
 
 }
 
-const pesquisarComDelay = debouce( async (nomeProduto) => {
+const pesquisarComDelay = debouce(async (nomeProduto) => {
     await pesquisar(nomeProduto)
 }, 500)
 

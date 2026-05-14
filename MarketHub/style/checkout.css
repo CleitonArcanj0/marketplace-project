@@ -1,0 +1,162 @@
+.box-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns:  1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+}
+
+.forms {
+
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    gap: 10px;
+    padding: 20px;
+    background-color: var(--color-surface);
+    border-radius: 10px;
+    box-shadow: var(--shadow-md);
+
+
+}
+
+.title-forms {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+}
+
+label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+
+.box-cep {
+    display: flex;
+    gap: 9px;
+}
+
+
+.inputs-info {
+    height: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: 08px;
+    padding: 15px;
+}
+
+
+.checkbox-pagamento {
+    padding: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+.button-form {
+    font-weight: 500;
+    color: var(--color-primary);
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    height: 35px;
+    width: 100px;
+
+}
+
+.box-resumo-pedido {
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box-img {
+    display: flex;
+}
+
+.box-img>.info-produtos {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    font-weight: 600;
+
+}
+
+
+.box-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.info-compra {
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-info-secury {
+    border: 1px solid rgb(11, 105, 11);
+    border-radius: 15px;
+    padding: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--color-background);
+
+}
+
+.box-valor-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 9px 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.box-valor-total>.total-title {
+    font-size: 1.2rem;
+}
+
+.box-valor-total p {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.fa-lock,
+.fa-location-dot,
+.fa-credit-card,
+.fa-user {
+    margin-right: 5px;
+}
+
+.text-pequeno {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    font-weight: 300;
+}
+
+.txt-verde {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: rgb(11, 105, 11);
+
+}
+
+.button-primary {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    border-radius: 15px;
+    width: 100%;
+    padding: 20px;
+    color: var(--color-surface);
+    background-color: var(--color-primary);
+}
+
+.linha-horizontal {
+    border-color: #3333332a;
+    width: 100%;
+    margin: 10px 0;
+}

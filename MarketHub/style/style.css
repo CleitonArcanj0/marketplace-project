@@ -327,7 +327,7 @@ body {
 }
 
 
-.box-detail-product {
+.box {
     grid-column: 2;
     display: grid;
     grid-template-columns: 1fr;
