@@ -26,7 +26,7 @@ export function renderPageDetails(container, produto) {
                     </ul>
                     
                     <!--botão adicionar ao carrinho-->
-                    <button class="button-add-cart">Adicionar ao carrinho</button>
+                    <button class="button-add-cart" data-nome='${produto.title}'>Adicionar ao carrinho</button>
 
                     <!--botão comprar agora-->
                     <button class="button-buy" data-nome='${produto.title}'>Comprar agora</button>
