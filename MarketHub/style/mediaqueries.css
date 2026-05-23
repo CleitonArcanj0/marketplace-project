@@ -53,9 +53,10 @@
         display: block;
         bottom: 0;
         right: 0;
-        top: 15px;
-        width: 50;
-        height: 95%;
+        left: 55%;
+        top: 69px;
+        width: 45%;
+        height: 85%;
         background: var(--color-surface);
         box-shadow: var(--shadow-md);
         border-radius: 10px 0 0 10px;
@@ -110,6 +111,7 @@
 
     .produtos {
         grid-template-rows: auto;
+        justify-content: center;
     }
 
     .box {
@@ -120,14 +122,12 @@
     }
 
     .box-form {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 60% 40%;
+        grid-template-columns: 55% 35%;
         grid-template-areas:
             'dadospessoais   resumo'
             'endereco        resumo'
-            'pagamento       resumo';
-        gap: 10px;
+            'pagamento        resumo'
+            'botao             resumo';
     }
 
 
@@ -144,7 +144,11 @@
     }
 
     #resumo-pedido {
+    
         grid-area: resumo;
+    }
+    #button-buy{
+        grid-area: botao;
     }
 
 
