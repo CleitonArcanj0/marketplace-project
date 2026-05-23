@@ -555,7 +555,7 @@ body {
 }
 
 .img-product {
-    height: clamp(300px, 18vw, 359px);
+    height: clamp(231px, 18vw, 359px);
     justify-self: center;
 
 }

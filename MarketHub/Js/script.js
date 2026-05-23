@@ -82,12 +82,17 @@ iconeCarrinho.addEventListener('click', toggleCarrinho)
 pesquisaInput.addEventListener('keyup', handlePesquisar)
 iconeMenu.addEventListener('click', toggleIconeMenu)
 
+window.addEventListener('DOMContentLoaded', apagarQuantidadeCarrinho)
+
+
 const acao = {
     "btn-ver-mais": botaoVerMais,
     "button-buy": botaoComprar,
     "button-add-cart": botaoAddCarrinho,
     "btn-finalizar-compra-carrinho": botaoComprar,
-    "fechar": toggleCarrinho
+    "fechar": toggleCarrinho,
+    "btn-mais": handleQuantidadeProduto,
+    "btn-menos": handleQuantidadeProduto
 }
 
 async function handleProdutosClick(e) {
@@ -183,7 +188,23 @@ function definirEstado(habilitado, ...elemento) {
 
 }
 
+function handleQuantidadeProduto(e) {
+    const inputQuantidade = document.querySelector(".contador")
+    let quantidade = parseInt(inputQuantidade.value)
 
+    if (e == 'botaoMais' && quantidade < 99) {
+        quantidade++
+    } else if (e == 'botaoMenos' && quantidade > 1) {
+        quantidade--
+    }
+
+    inputQuantidade.value = quantidade
+    localStorage.setItem("quantidade", quantidade)
+
+}
+function apagarQuantidadeCarrinho(){
+    localStorage.removeItem("quantidade")
+}
 
 function atualizaStars() {
     const ratings = document.querySelectorAll(".rating")

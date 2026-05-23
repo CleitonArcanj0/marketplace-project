@@ -19,9 +19,9 @@ export function renderCarrinho(container, produto) {
                     <h1>${produto.title}</h1>
                     <p class="preco-carrinho">R$ ${produto.price}</p>
                     <div class="seletor-quantidade">
-                        <button type="button" class="btn-menos" >-</button>
+                        <button type="button" class="btn-menos" id="btnMenos" data-nome="botaoMenos">-</button>
                         <input type="number" class="contador" id="quantidade" min="1" max="99" value="1" readonly>
-                        <button type="button" class="btn-mais" >+</button>
+                        <button type="button" class="btn-mais" id="btnMais" data-nome="botaoMais">+</button>
                     </div>
                     
                 </div>

@@ -23,13 +23,13 @@
     }
 
     .container {
-        grid-template-columns: 0px 1fr 0px;
+        grid-template-columns: auto 1fr auto;
 
         transition: grid-template-columns 0.3s ease;
     }
 
     .container.carrinho-aberto {
-        grid-template-columns: 0px 3fr 350px;
+        grid-template-columns: auto 1fr auto;
 
         .produtos {
             grid-column: 2/3;
@@ -54,9 +54,9 @@
         bottom: 0;
         right: 0;
         left: 55%;
-        top: 69px;
+        top: 0;
         width: 45%;
-        height: 85%;
+        height: 100%;
         background: var(--color-surface);
         box-shadow: var(--shadow-md);
         border-radius: 10px 0 0 10px;

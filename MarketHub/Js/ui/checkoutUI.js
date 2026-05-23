@@ -17,11 +17,11 @@ function renderFormDadosPessoais() {
             <h4 class="title-forms "> <i class="fa-solid fa-user" style="color: rgb(0, 65, 141);"></i>Dados pessoais
             </h4>
             <label for="nomeCompleto">Nome completo</label>
-            <input type="text" id="nomeCompleto" class="input-nome inputs-info">
+            <input type="text" id="nomeCompleto" class="input-nome inputs-info" placeholder="Digite seu nome completo">
             <label for="in-email">Email</label>
-            <input type="email" id="in-email" class="input-email inputs-info ">
+            <input type="email" id="in-email" class="input-email inputs-info " placeholder="Digite seu email">
             <label for="in-tel">Telefone</label>
-            <input type="tel" id="in-tel" class="input-tel inputs-info">
+            <input type="tel" id="in-tel" class="input-tel inputs-info" placeholder="Digite seu telefone">
         </section>`
 
     return html;
@@ -40,21 +40,21 @@ function renderFormEndereco() {
             </div>
 
             <label for="in-endereco">Endereço</label>
-            <input type="text" id="in-endereco" class="input-endereco inputs-info">
+            <input type="text" id="in-endereco" class="input-endereco inputs-info" placeholder="Digite seu endereço">
 
             <label for="in-numero-cs">Número</label>
-            <input type="text" id="in-numero-cs" class="input-numero-cs inputs-info">
+            <input type="text" id="in-numero-cs" class="input-numero-cs inputs-info" placeholder="Número">
             <label for="in-completo">Complemento (opcional)</label>
-            <input type="text" id="in-completo" class="input-complemento inputs-info">
+            <input type="text" id="in-completo" class="input-complemento inputs-info" placeholder="Complemento">
 
             <label for="in-bairro">Bairro</label>
-            <input type="text" id="in-bairro" class="input-bairro inputs-info">
+            <input type="text" id="in-bairro" class="input-bairro inputs-info" placeholder="Digite seu bairro">
 
             <label for="in-cidade">Cidade</label>
-            <input type="text" id="in-cidade" class="input-cidade inputs-info">
+            <input type="text" id="in-cidade" class="input-cidade inputs-info" placeholder="Digite sua cidade">
 
             <label for="in-estado">Estado</label>
-            <input type="text" id="in-estado" class="input-estado inputs-info">
+            <input type="text" id="in-estado" class="input-estado inputs-info" placeholder="Digite seu estado">
         </section>`
 
     return html;
@@ -82,8 +82,8 @@ function renderResumoDoPedido(produto) {
                 <img src="${produto.thumbnail}" alt="imagemDoProduto" class="img-product">
                 <div class="info-produtos">
                     <h3>${produto.title}</h3>
-                    <p>R$  ${produto.price.toFixed(2)}</p>
-                    <p>Qtd: <span>0</span> </p>
+                    <p class="txt-verde">R$  ${produto.price.toFixed(2)}</p>
+                    <p>Qtd: <span>${localStorage.getItem("quantidade") || 1}</span> </p>
                 </div>
             </div>
             <hr class="linha-horizontal">
