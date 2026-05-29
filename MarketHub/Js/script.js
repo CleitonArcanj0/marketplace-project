@@ -1,88 +1,37 @@
-import { buscarProdutos, filtrarCategoria, pesquisarProdutos, descricaoCompleta, categorias } from "./api.js";
+import { router, navegacao } from "./router.js";
+import { pesquisar, handleCategoriaClick, carregarCarrinho } from "./page.js";
+import { toggleCarrinho, toggleIconeMenu, definirEstado } from "./uiState.js";
+import {
+    containerCards,
+    sidebarCarrinho,
+    sidebarCategoria,
+    menuCategorias,
+    iconeMenu,
+    pesquisaInput,
+    iconeBusca,
+    container
 
-import { renderProducts, renderSidebar } from "./ui/productsUI.js";
-import { renderPageDetails, renderStars } from "./ui/detailsUI.js";
-import { renderCheckout } from "./ui/checkoutUI.js";
-import { renderCarrinho } from "./ui/cartUI.js";
-
-
-const containerCards = document.querySelector("#cards"),
-    pesquisaInput = document.querySelector(".pesquisarProdutos"),
-    iconeBusca = document.querySelector(".iconePesquisa"),
-    iconeMenu = document.querySelector(".fa-bars"),
-    iconeCarrinho = document.querySelector(".fa-cart-shopping"),
-    menuCategorias = document.querySelector("#listaCategorias"),
-    sidebarCategoria = document.querySelector(".sidebar-categorias"),
-    sidebarCarrinho = document.querySelector(".sidebar-carrinho"),
-    container = document.querySelector(".container");
-
-
-
-
-async function init() {
-    await carregarProdutos()
-    await carregarCategorias()
-}
-
-init()
-
-
-
-async function carregarProdutos() {
-    const dados = await buscarProdutos()
-    definirEstado(false, iconeCarrinho)
-    renderProducts(containerCards, dados.products)
-}
-async function carregarCategorias() {
-    const lista_categorias = await categorias()
-    renderSidebar(menuCategorias, lista_categorias)
-
-}
-
-async function carregarDetalhesDoProduto(nomeDoProduto) {
-    const produto = await descricaoCompleta(nomeDoProduto)
-    definirEstado(false, sidebarCategoria, menuCategorias, iconeMenu, pesquisaInput, iconeBusca)
-    renderPageDetails(containerCards, produto.products[0])
-    atualizarLayout()
-    atualizaStars()
-}
-
-
-async function carregarProdutosCategoria(nomeDoProduto) {
-    const produto = await filtrarCategoria(nomeDoProduto)
-    renderProducts(containerCards, produto.products)
-
-}
-
-async function pesquisar(nomeDoProduto) {
-    const produtos = await pesquisarProdutos(nomeDoProduto)
-    renderProducts(containerCards, produtos.products)
-}
-
-async function carregarCheckout(nomeDoProduto) {
-    const produto = await descricaoCompleta(nomeDoProduto)
-
-    definirEstado(false, sidebarCarrinho, sidebarCategoria, iconeCarrinho)
-    renderCheckout(containerCards, produto.products[0])
-    atualizarLayout()
-
-}
-
-async function carregarCarrinho(nomeDoProduto) {
-    const produto = await descricaoCompleta(nomeDoProduto)
-    renderCarrinho(sidebarCarrinho, produto.products[0])
-
-}
+} from "./elements.js"
 
 
 containerCards.addEventListener('click', handleProdutosClick)
 menuCategorias.addEventListener('click', handleCategoriaClick)
 sidebarCarrinho.addEventListener('click', handleProdutosClick)
-iconeCarrinho.addEventListener('click', toggleCarrinho)
 pesquisaInput.addEventListener('keyup', handlePesquisar)
 iconeMenu.addEventListener('click', toggleIconeMenu)
 
-window.addEventListener('DOMContentLoaded', apagarQuantidadeCarrinho)
+window.addEventListener('hashchange', () => {
+    router()
+
+    iconeBusca.classList.contains('desativado')
+        && (
+            definirEstado(true, sidebarCategoria, menuCategorias, iconeMenu, pesquisaInput, iconeBusca)
+        )
+
+})
+window.addEventListener('DOMContentLoaded',
+    router()
+)
 
 
 const acao = {
@@ -107,11 +56,11 @@ async function handleProdutosClick(e) {
 }
 
 async function botaoVerMais(nome) {
-    await carregarDetalhesDoProduto(nome)
+    await navegacao(`/detalhes/${nome}`)
 }
 
 async function botaoComprar(nome) {
-    await carregarCheckout(nome)
+    await navegacao(`/checkout/${nome}`)
 
 }
 
@@ -124,18 +73,6 @@ async function botaoAddCarrinho(nome) {
         toggleCarrinho()
 
     }
-
-}
-
-async function handleCategoriaClick(e) {
-    const liClicado = e.target.closest('li')
-
-    if (!liClicado) return
-
-    const nomeCategoria = liClicado.innerText;
-    await carregarProdutosCategoria(nomeCategoria)
-    atualizarLayout()
-
 }
 
 
@@ -144,19 +81,6 @@ function handlePesquisar(e) {
     pesquisarComDelay(nomeProduto)
 }
 
-function toggleIconeMenu() {
-    container.classList.toggle("menu-aberto")
-
-}
-
-function toggleCarrinho() {
-    container.classList.toggle("carrinho-aberto")
-}
-
-function atualizarLayout() {
-    container.classList.remove("menu-aberto")
-    container.classList.remove("carrinho-aberto")
-}
 
 const pesquisarComDelay = debouce(async (nomeProduto) => {
     await pesquisar(nomeProduto)
@@ -179,14 +103,7 @@ function debouce(callback, delay) {
     }
 
 }
-function definirEstado(habilitado, ...elemento) {
-    elemento.forEach(item => {
-        item.disabled = !habilitado
-        item.classList.toggle("desativado", !habilitado)
 
-    });
-
-}
 
 function handleQuantidadeProduto(e) {
     const inputQuantidade = document.querySelector(".contador")
@@ -202,22 +119,11 @@ function handleQuantidadeProduto(e) {
     localStorage.setItem("quantidade", quantidade)
 
 }
-function apagarQuantidadeCarrinho(){
+function apagarQuantidadeCarrinho() {
     localStorage.removeItem("quantidade")
 }
 
-function atualizaStars() {
-    const ratings = document.querySelectorAll(".rating")
 
-    ratings.forEach(element => {
 
-        const rating = parseFloat(element.dataset.rating)
-        const maxStars = 5;
 
-        const porcentagem = (rating / maxStars) * 100
-
-        renderStars(element, porcentagem, maxStars)
-    })
-
-}
 
