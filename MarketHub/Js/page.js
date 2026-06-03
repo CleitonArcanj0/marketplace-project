@@ -3,37 +3,49 @@ import { renderProducts, renderSidebar } from "./ui/productsUI.js";
 import { renderPageDetails, renderStars } from "./ui/detailsUI.js";
 import { renderCheckout } from "./ui/checkoutUI.js";
 import { renderCarrinho } from "./ui/cartUI.js";
+import { renderNavbar } from './ui/navbarUI.js'
 import { definirEstado, atualizarLayout, toggleIconeMenu, toggleCarrinho } from "./uiState.js";
+import { estadoDoCarrinho } from "./stateCart.js";
 import {
     containerCards,
     sidebarCarrinho,
     sidebarCategoria,
     menuCategorias,
-    iconeMenu,
-    pesquisaInput,
-    iconeBusca,
+    getIconeMenu,
+    getIconeBusca,
+    getAreaBusca,
+    getIconePesquisa,
+    navbar
 } from "./elements.js"
 
 
+export function carregarNavBar() {
+    renderNavbar(navbar)
+
+}
+
 export async function carregarProdutos() {
     const dados = await buscarProdutos()
- 
+
     renderProducts(containerCards, dados.products)
 }
 
 export async function carregarDetalhesDoProduto(nomeDoProduto) {
     const produto = await descricaoCompleta(nomeDoProduto)
-    definirEstado(false, sidebarCategoria, menuCategorias, iconeMenu, pesquisaInput, iconeBusca)
     renderPageDetails(containerCards, produto.products[0])
     atualizarLayout()
     atualizaStars()
+
+    definirEstado(false, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
 }
+
 
 export async function carregarCheckout(nomeDoProduto) {
     const produto = await descricaoCompleta(nomeDoProduto)
+    const estadoCarrinho = estadoDoCarrinho()
 
-    definirEstado(false, sidebarCategoria, menuCategorias, iconeMenu, pesquisaInput, iconeBusca)
-    renderCheckout(containerCards, produto.products[0])
+    renderCheckout(containerCards, produto.products[0],estadoCarrinho.quantidade, estadoCarrinho.total)
+    definirEstado(false, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
     atualizarLayout()
 
 }
@@ -49,6 +61,12 @@ async function carregarCategorias() {
 
 }
 
+export async function carregarCarrinho(nomeDoProduto) {
+    const produto = await descricaoCompleta(nomeDoProduto)
+    const estadoCarrinho = estadoDoCarrinho()
+    renderCarrinho(sidebarCarrinho, produto.products[0], estadoCarrinho.quantidade, estadoCarrinho.total)
+
+}
 export async function pesquisar(nomeDoProduto) {
     const produtos = await pesquisarProdutos(nomeDoProduto)
     renderProducts(containerCards, produtos.products)
@@ -78,11 +96,6 @@ function atualizaStars() {
     })
 
 }
-export async function carregarCarrinho(nomeDoProduto) {
-    const produto = await descricaoCompleta(nomeDoProduto)
-    renderCarrinho(sidebarCarrinho, produto.products[0])
-
-}
-
+carregarNavBar()
 carregarCategorias()
 

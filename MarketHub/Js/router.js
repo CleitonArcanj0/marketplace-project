@@ -12,7 +12,7 @@ export async function navegacao(path) {
 }
 
 export async function router() {
-    const path = location.hash.replace("#", "") || "/MarketHub/"
+    const path = location.hash.replace("#","") || "/MarketHub/"
 
     for (const route in routes) {
         if (route === path) {

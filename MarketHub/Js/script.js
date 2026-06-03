@@ -1,38 +1,53 @@
 import { router, navegacao } from "./router.js";
-import { pesquisar, handleCategoriaClick, carregarCarrinho } from "./page.js";
+import { pesquisar, handleCategoriaClick, carregarCarrinho, carregarNavBar } from "./page.js";
 import { toggleCarrinho, toggleIconeMenu, definirEstado } from "./uiState.js";
+import { estadoDoCarrinho } from "./stateCart.js";
 import {
     containerCards,
     sidebarCarrinho,
     sidebarCategoria,
     menuCategorias,
-    iconeMenu,
-    pesquisaInput,
-    iconeBusca,
-    container
+    getIconeMenu,
+    getIconeBusca,
+    getAreaBusca,
+    getIconePesquisa,
+    getCampoTotal,
+    getPrecoProduto, 
+    getSubtotal,
+    getContador,
+    container,
 
 } from "./elements.js"
+import { renderCarrinho } from "./ui/cartUI.js";
 
 
 containerCards.addEventListener('click', handleProdutosClick)
 menuCategorias.addEventListener('click', handleCategoriaClick)
 sidebarCarrinho.addEventListener('click', handleProdutosClick)
-pesquisaInput.addEventListener('keyup', handlePesquisar)
-iconeMenu.addEventListener('click', toggleIconeMenu)
+
 
 window.addEventListener('hashchange', () => {
-    router()
+    const home = location.pathname === "/MarketHub/"
 
-    iconeBusca.classList.contains('desativado')
-        && (
-            definirEstado(true, sidebarCategoria, menuCategorias, iconeMenu, pesquisaInput, iconeBusca)
-        )
+    router()
+    if (home) {
+        definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
+    }
 
 })
-window.addEventListener('DOMContentLoaded',
-    router()
-)
 
+window.addEventListener('DOMContentLoaded', () => {
+    const home = location.pathname === "/MarketHub/"
+    router()
+    
+    definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
+
+    getIconePesquisa()?.addEventListener('keyup', handlePesquisar)
+    getIconeMenu()?.addEventListener('click', toggleIconeMenu)
+
+
+}
+)
 
 const acao = {
     "btn-ver-mais": botaoVerMais,
@@ -106,7 +121,7 @@ function debouce(callback, delay) {
 
 
 function handleQuantidadeProduto(e) {
-    const inputQuantidade = document.querySelector(".contador")
+    const inputQuantidade = getContador()
     let quantidade = parseInt(inputQuantidade.value)
 
     if (e == 'botaoMais' && quantidade < 99) {
@@ -115,10 +130,39 @@ function handleQuantidadeProduto(e) {
         quantidade--
     }
 
-    inputQuantidade.value = quantidade
-    localStorage.setItem("quantidade", quantidade)
+    salvarLocalStorage('quantidade', quantidade)
 
+    const obterQt = obterDadosLocalStorage("quantidade")
+
+    inputQuantidade.value = obterQt
+
+    valorFinal(obterQt)
 }
+
+function valorFinal(quantidade) {
+    const subtotal = getSubtotal()
+    const precoProduto = getPrecoProduto()
+    const campo_total = getCampoTotal()
+    const total = quantidade * precoProduto
+
+
+    salvarLocalStorage('total', total)
+    salvarLocalStorage('precoProduto', precoProduto)
+
+    const totalSalvo = Number(obterDadosLocalStorage('total'))
+
+    subtotal.innerText = ` R$ ${totalSalvo.toFixed(2)}`
+    campo_total.innerText = ` R$ ${totalSalvo.toFixed(2)}`
+}
+
+function salvarLocalStorage(conteudo, variavel) {
+    localStorage.setItem(conteudo, variavel)
+}
+
+function obterDadosLocalStorage(dados){
+    return localStorage.getItem(dados)
+}
+
 function apagarQuantidadeCarrinho() {
     localStorage.removeItem("quantidade")
 }

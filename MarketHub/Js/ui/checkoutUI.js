@@ -1,11 +1,11 @@
 
-export function renderCheckout(form, produto) {
+export function renderCheckout(form, produto, quantidade, total) {
     form.innerHTML = `   
         <form action="" method="post" class="box-form">
              ${renderFormDadosPessoais()}
              ${renderFormEndereco()}
              ${renderFormFormasdePagamentos()}
-            ${renderResumoDoPedido(produto)}
+            ${renderResumoDoPedido(produto, quantidade, total)}
         </form>
     `;
 
@@ -74,7 +74,7 @@ function renderFormFormasdePagamentos() {
     return html;
 }
 
-function renderResumoDoPedido(produto) {
+function renderResumoDoPedido(produto, quantidade, total) {
     let html = `  
         <section class="forms box-resumo-pedido" id="resumo-pedido">
             <h1 class="title-forms">Resumo do pedido</h1>
@@ -83,7 +83,7 @@ function renderResumoDoPedido(produto) {
                 <div class="info-produtos">
                     <h3>${produto.title}</h3>
                     <p class="txt-verde">R$  ${produto.price.toFixed(2)}</p>
-                    <p>Qtd: <span>${localStorage.getItem("quantidade") || 1}</span> </p>
+                    <p>Qtd: <span>${quantidade ? quantidade : 1}</span> </p>
                 </div>
             </div>
             <hr class="linha-horizontal">
@@ -91,7 +91,7 @@ function renderResumoDoPedido(produto) {
             <div class="box-price">
                 <div class="info-compra">
                     <p>Subtotal</p>
-                    <p>R$ ${produto.price.toFixed(2)}</p>
+                    <p>R$ ${total ? total.toFixed(2) : produto.price.toFixed(2)}</p>
                 </div>
                 <div class="info-compra">
                     <p>Entrega</p>
@@ -101,7 +101,7 @@ function renderResumoDoPedido(produto) {
             <hr class="linha-horizontal">
             <div class="box-valor-total">
                 <h3 class="total-title">Total</h3>
-                <p>R$ ${produto.price.toFixed(2)}</p>
+                <p>R$ ${total ? total.toFixed(2) : produto.price.toFixed(2)}</p>
 
             </div>
 

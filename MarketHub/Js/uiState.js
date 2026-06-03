@@ -1,4 +1,4 @@
-import { container  } from "./elements.js";
+import { container } from "./elements.js";
 
 
 export function atualizarLayout() {
@@ -6,11 +6,10 @@ export function atualizarLayout() {
     container.classList.remove("carrinho-aberto")
 }
 
-export function definirEstado(habilitado, ...elemento) {
-    elemento.forEach(item => {
+export function definirEstado(habilitado, ...elementos) {
+    elementos.forEach(item => {
         item.disabled = !habilitado
         item.classList.toggle("desativado", !habilitado)
-
     });
 
 }
@@ -23,4 +22,5 @@ export function toggleIconeMenu() {
 export function toggleCarrinho() {
     container.classList.toggle("carrinho-aberto")
 }
+
 

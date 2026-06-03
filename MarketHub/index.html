@@ -9,15 +9,17 @@
     <link rel="stylesheet" href="style/mediaqueries.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+    <script type="module" src="Js/ui/navbarUI.js" defer></script>
 
     <title>MarketHub</title>
+    
 </head>
 
 <body>
     <header class="navbar">
 
-        <div class="logo">
-            <i class="fa-solid fa-bars fa-2xl"></i>
+       <!-- <div class="logo">
+            <i class="fa-solid fa-bars fa-2xl desativado " ></i>
             <i class="fa-solid fa-bag-shopping fa-2xl"></i>
             <h1>MarketHub</h1>
         </div>
@@ -26,13 +28,13 @@
           
         </div>
 
-        <div class="areaBusca">
-            <span class="material-symbols-outlined iconePesquisa">
+        <div class="areaBusca desativado">
+            <span class="material-symbols-outlined iconePesquisa desativado">
                 search
             </span>
             <label for="pesquisar" class="sr-only">Buscar Produtos</label>
             <input type="text" placeholder="Buscar Produtos" id="pesquisar" class="pesquisarProdutos">
-        </div>
+        </div>-->
 
     </header>
 
@@ -56,13 +58,13 @@
     <footer>
         <p>Página criada Por Cleiton Arcanjo</p>
     </footer>
-    <script type="module" src="Js/page.js"></script>
+    <script type="module" src="Js/elements.js" defer></script>  
+    <script type="module" src="Js/page.js"defer></script>
+    <script type="module" src="Js/script.js" defer></script>
     <script type="module" src="Js/api.js" defer></script>
-    <script type="module" src="Js/elements.js" defer></script>
     <script type="module" src="Js/router.js" defer></script>
     <script type="module" src="Js/ui/productsUI.js" defer></script>
     <script type="module" src="Js/ui/detailsUI.js" defer></script>
-    <script type="module" src="Js/script.js" defer></script>
     <script type="module" src="Js/ui/checkoutUI.js" defer></script>
 </body>
 
