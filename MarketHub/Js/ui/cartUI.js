@@ -16,7 +16,7 @@ export function renderCarrinho(container, produto, quantidade, total) {
 
                 <div class="qtd-produto-carrinho">
 
-                    <h1>${produto.title}</h1>
+                    <h1 id="titulo-produto-carrinho">${produto.title}</h1>
                     <p class="preco-carrinho" data-price="${produto.price}">R$ ${produto.price}</p>
                     <div class="seletor-quantidade">
                         <button type="button" class="btn-menos" id="btnMenos" data-nome="botaoMenos">-</button>
@@ -31,7 +31,7 @@ export function renderCarrinho(container, produto, quantidade, total) {
             <div class="box-price-carrinho">
                 <div class="info-compra-carrinho">
                     <p>Subtotal</p>
-                    <p class="subtotal">R$ ${total ? total.toFixed(2) : produto.price.toFixed(2)}</p>
+                    <p class="subtotal">R$ ${produto.price.toFixed(2)}</p>
                 </div>
                 <div class="info-compra-carrinho">
                     <p>Entrega</p>
@@ -40,7 +40,7 @@ export function renderCarrinho(container, produto, quantidade, total) {
             </div>
             <div class="valor-total-carrinho">
                 <h3 class="titulo">Total</h3>
-                <p class="total">R$ ${total.toFixed(2)}</p>
+                <p class="total">R$ ${total !== 0 ? total.toFixed(2) : produto.price.toFixed(2)}</p>
             </div>
             <button class="btn-finalizar-compra-carrinho" data-nome='${produto.title}'>
                 Finalizar a compra

@@ -15,4 +15,5 @@ export const getAreaBusca = () => document.querySelector(".areaBusca"),
 export const getSubtotal = () => document.querySelector(".subtotal"),
     getPrecoProduto = () => Number(document.querySelector(".preco-carrinho").dataset.price),
     getCampoTotal = () => document.querySelector(".total"),
-    getContador = () => document.querySelector(".contador")
+    getContador = () => document.querySelector(".contador"),
+    getNome = () => document.querySelector("#titulo-produto-carrinho").innerText;

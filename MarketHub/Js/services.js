@@ -1,4 +1,4 @@
-
+import { estadoDoCarrinho } from "./stateCart.js"
 
 export async function buscarProdutos() {
     try {
@@ -93,14 +93,14 @@ export async function categorias() {
     }
 }
 
-export async function extrairDados(nome) {
-    const produto = await descricaoCompleta(nome)
-    const { title, price } = produto.products[0]
+export function extrairDados() {
+    const produto = estadoDoCarrinho()
+    const { nome, total } = produto
 
 
-    if (!title || !price) {
+    if (!nome || !total) {
         throw new Error("Produto inválido: nome e preço são obrigatórios")
     }
 
-    return { produto: title, preco: price }
+    return { produto: nome, preco: total }
 }

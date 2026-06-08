@@ -17,6 +17,7 @@ import {
     getPrecoProduto,
     getSubtotal,
     getContador,
+    getNome,
     container,
 
 } from "./elements.js"
@@ -33,6 +34,7 @@ window.addEventListener('hashchange', () => {
     router()
     if (home) {
         definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
+        apagarDadosDoCarrinho()
     }
 
 })
@@ -42,7 +44,6 @@ window.addEventListener('DOMContentLoaded', () => {
     router()
 
     definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
-
     getIconePesquisa()?.addEventListener('keyup', handlePesquisar)
     getIconeMenu()?.addEventListener('click', toggleIconeMenu)
 
@@ -77,16 +78,16 @@ async function botaoVerMais(nome) {
 }
 
 async function botaoComprar(nome) {
-    const { produto, preco } = await extrairDados(nome)
+    const { produto, preco } = await extrairDados()
 
     const resposta = await fetch('/api/checkout', {
         method: 'POST',
-        headers: { 'Content-Type':'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ produto, preco })
     })
 
     const { url } = await resposta.json()
-    console.log('status:', resposta.status) 
+    console.log('status:', resposta.status)
     window.location.href = url
 }
 
@@ -131,6 +132,7 @@ function debouce(callback, delay) {
 }
 
 
+
 function handleQuantidadeProduto(e) {
     const inputQuantidade = getContador()
     let quantidade = parseInt(inputQuantidade.value)
@@ -142,27 +144,32 @@ function handleQuantidadeProduto(e) {
     }
 
     salvarLocalStorage('quantidade', quantidade)
-
-    const obterQt = obterDadosLocalStorage("quantidade")
-
-    inputQuantidade.value = obterQt
-
-    valorFinal(obterQt)
+    exibirQuantidade(inputQuantidade)
+    valorFinal()
 }
 
-function valorFinal(quantidade) {
-    const subtotal = getSubtotal()
+function valorFinal() {
+    const quantidade = estadoDoCarrinho().quantidade
     const precoProduto = getPrecoProduto()
-    const campo_total = getCampoTotal()
-    const total = quantidade * precoProduto
+    const nomeProduto = getNome()
 
-
+    let total = quantidade * precoProduto
+    salvarLocalStorage('nomeDoProduto', nomeProduto)
     salvarLocalStorage('total', total)
     salvarLocalStorage('precoProduto', precoProduto)
+    exibirValorTotal()
 
-    const totalSalvo = Number(obterDadosLocalStorage('total'))
+}
 
-    subtotal.innerText = ` R$ ${totalSalvo.toFixed(2)}`
+function exibirQuantidade(inputQuantidade) {
+    const obterQuantidade = estadoDoCarrinho()
+    inputQuantidade.value = obterQuantidade.quantidade
+}
+
+function exibirValorTotal() {
+    const campo_total = getCampoTotal()
+    const totalSalvo = estadoDoCarrinho().total
+
     campo_total.innerText = ` R$ ${totalSalvo.toFixed(2)}`
 }
 
@@ -174,8 +181,12 @@ function obterDadosLocalStorage(dados) {
     return localStorage.getItem(dados)
 }
 
-function apagarQuantidadeCarrinho() {
+function apagarDadosDoCarrinho() {
+    localStorage.removeItem("precoProduto")
     localStorage.removeItem("quantidade")
+    localStorage.removeItem("total")
+    localStorage.removeItem("nomeDoProduto")
+    
 }
 
 

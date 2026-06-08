@@ -1,11 +1,14 @@
 export const estadoDoCarrinho = () => {
-    const getQuantidade = localStorage.getItem("quantidade")
+    const getQuantidade = Number(localStorage.getItem("quantidade"))
     const getTotal = Number(localStorage.getItem("total"))
     const getPreco = Number(localStorage.getItem("precoProduto"))
+    const getNome = localStorage.getItem("nomeDoProduto")
 
-    return {
-        quantidade: getQuantidade,
+    return  {
+        nome: getNome,
         total: getTotal,
+        quantidade: getQuantidade,
         preco: getPreco,
+
     }
 } 
