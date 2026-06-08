@@ -28,6 +28,8 @@ export async function carregarProdutos() {
     const dados = await buscarProdutos()
 
     renderProducts(containerCards, dados.products)
+    definirEstado(true, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
+
 }
 
 export async function carregarDetalhesDoProduto(nomeDoProduto) {
@@ -44,7 +46,7 @@ export async function carregarCheckout(nomeDoProduto) {
     const produto = await descricaoCompleta(nomeDoProduto)
     const estadoCarrinho = estadoDoCarrinho()
 
-    renderCheckout(containerCards, produto.products[0],estadoCarrinho.quantidade, estadoCarrinho.total)
+    renderCheckout(containerCards, produto.products[0], estadoCarrinho.quantidade, estadoCarrinho.total)
     definirEstado(false, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
     atualizarLayout()
 

@@ -19,6 +19,7 @@ import {
     getContador,
     getNome,
     container,
+    getPesquisaInput,
 
 } from "./elements.js"
 
@@ -29,9 +30,9 @@ sidebarCarrinho.addEventListener('click', handleProdutosClick)
 
 
 window.addEventListener('hashchange', () => {
-    const home = location.pathname === "/MarketHub/"
-
+    const home = location.hash === "#/MarketHub/" || location.pathname === "/MarketHub/"
     router()
+
     if (home) {
         definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
         apagarDadosDoCarrinho()
@@ -40,16 +41,10 @@ window.addEventListener('hashchange', () => {
 })
 
 window.addEventListener('DOMContentLoaded', () => {
-    const home = location.pathname === "/MarketHub/"
     router()
-
-    definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
-    getIconePesquisa()?.addEventListener('keyup', handlePesquisar)
+    getPesquisaInput().addEventListener('keyup', handlePesquisar)
     getIconeMenu()?.addEventListener('click', toggleIconeMenu)
-
-
-}
-)
+})
 
 const acao = {
     "btn-ver-mais": botaoVerMais,
@@ -186,7 +181,7 @@ function apagarDadosDoCarrinho() {
     localStorage.removeItem("quantidade")
     localStorage.removeItem("total")
     localStorage.removeItem("nomeDoProduto")
-    
+
 }
 
 
