@@ -1,4 +1,4 @@
-import { carregarProdutos, carregarDetalhesDoProduto, carregarCheckout } from "./page.js"
+import { carregarProdutos, carregarDetalhesDoProduto, carregarCheckout } from './page.js'
 
 const routes = {
     "/MarketHub/": carregarProdutos,

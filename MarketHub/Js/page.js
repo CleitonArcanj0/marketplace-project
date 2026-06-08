@@ -1,4 +1,4 @@
-import { buscarProdutos, filtrarCategoria, pesquisarProdutos, descricaoCompleta, categorias } from "./api.js";
+import { buscarProdutos, filtrarCategoria, pesquisarProdutos, descricaoCompleta, categorias } from "../Js/services.js";
 import { renderProducts, renderSidebar } from "./ui/productsUI.js";
 import { renderPageDetails, renderStars } from "./ui/detailsUI.js";
 import { renderCheckout } from "./ui/checkoutUI.js";

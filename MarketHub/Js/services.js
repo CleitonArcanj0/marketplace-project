@@ -1,6 +1,5 @@
 
 
-
 export async function buscarProdutos() {
     try {
         const produto = await fetch("https://dummyjson.com/products")
@@ -77,11 +76,11 @@ export async function descricaoCompleta(produto) {
 
 }
 
-export async function categorias(){
+export async function categorias() {
     try {
         const resposta = await fetch('https://dummyjson.com/products/category-list')
 
-        if(!resposta.ok){
+        if (!resposta.ok) {
             console.log("Erro na requisição")
             return
         }
@@ -92,4 +91,16 @@ export async function categorias(){
     } catch (error) {
         console.log(`Erro ao buscar dados ${error}`)
     }
+}
+
+export async function extrairDados(nome) {
+    const produto = await descricaoCompleta(nome)
+    const { title, price } = produto.products[0]
+
+
+    if (!title || !price) {
+        throw new Error("Produto inválido: nome e preço são obrigatórios")
+    }
+
+    return { produto: title, preco: price }
 }

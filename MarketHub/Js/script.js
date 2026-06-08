@@ -2,6 +2,8 @@ import { router, navegacao } from "./router.js";
 import { pesquisar, handleCategoriaClick, carregarCarrinho, carregarNavBar } from "./page.js";
 import { toggleCarrinho, toggleIconeMenu, definirEstado } from "./uiState.js";
 import { estadoDoCarrinho } from "./stateCart.js";
+import { renderCarrinho } from "./ui/cartUI.js";
+import { extrairDados } from "../Js/services.js";
 import {
     containerCards,
     sidebarCarrinho,
@@ -12,13 +14,12 @@ import {
     getAreaBusca,
     getIconePesquisa,
     getCampoTotal,
-    getPrecoProduto, 
+    getPrecoProduto,
     getSubtotal,
     getContador,
     container,
 
 } from "./elements.js"
-import { renderCarrinho } from "./ui/cartUI.js";
 
 
 containerCards.addEventListener('click', handleProdutosClick)
@@ -39,7 +40,7 @@ window.addEventListener('hashchange', () => {
 window.addEventListener('DOMContentLoaded', () => {
     const home = location.pathname === "/MarketHub/"
     router()
-    
+
     definirEstado(home, getAreaBusca(), getIconeBusca(), getIconeMenu(), getIconePesquisa())
 
     getIconePesquisa()?.addEventListener('keyup', handlePesquisar)
@@ -71,12 +72,22 @@ async function handleProdutosClick(e) {
 }
 
 async function botaoVerMais(nome) {
+
     await navegacao(`/detalhes/${nome}`)
 }
 
 async function botaoComprar(nome) {
-    await navegacao(`/checkout/${nome}`)
+    const { produto, preco } = await extrairDados(nome)
 
+    const resposta = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json'},
+        body: JSON.stringify({ produto, preco })
+    })
+
+    const { url } = await resposta.json()
+    console.log('status:', resposta.status) 
+    window.location.href = url
 }
 
 async function botaoAddCarrinho(nome) {
@@ -159,13 +170,15 @@ function salvarLocalStorage(conteudo, variavel) {
     localStorage.setItem(conteudo, variavel)
 }
 
-function obterDadosLocalStorage(dados){
+function obterDadosLocalStorage(dados) {
     return localStorage.getItem(dados)
 }
 
 function apagarQuantidadeCarrinho() {
     localStorage.removeItem("quantidade")
 }
+
+
 
 
 

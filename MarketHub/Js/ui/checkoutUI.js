@@ -110,6 +110,7 @@ function renderResumoDoPedido(produto, quantidade, total) {
                 <p class="text-pequeno">Seus dados estão protegidos e sua compra é segura</p>
             </div>
         </section>
+    
         <button type="submit" class=" button-primary" id="button-buy">
             Finalizar Compra
         </button>`
