@@ -31,8 +31,8 @@ export default async function checkout(req, res) {
                 },
             ],
             mode: 'payment',
-            success_url: 'http://localhost:3000/success.html',
-            cancel_url: 'http://localhost:3000/canceled.html',
+            success_url: 'https://markethub-lxi0kd6jf-cleitonarcanj0s-projects.vercel.app/success.html',
+            cancel_url: 'https://markethub-lxi0kd6jf-cleitonarcanj0s-projects.vercel.app/canceled.html',
         });
 
         return res.status(200).json({ url: session.url })
