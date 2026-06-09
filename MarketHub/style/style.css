@@ -341,13 +341,16 @@ body {
     font-family: var(--fonte-padrao);
     font-weight: 600;
     border-radius: 15px;
-    outline: none;
+    outline: #073e72 1px;
     width: 100%;
     padding: 20px;
     color: var(--color-surface);
     background-color: var(--color-primary)
 }
-
+.btn-finalizar-compra-carrinho:hover{
+    cursor: pointer;
+    transform: translateY(-2px);
+}
 
 .categorias {
     display: flex;
@@ -656,6 +659,9 @@ body {
 }
 
 
+.button-buy:hover{
+    cursor: pointer;
+}
 footer {
     display: flex;
     align-items: center;
