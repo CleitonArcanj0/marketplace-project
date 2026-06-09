@@ -93,11 +93,16 @@ export async function categorias() {
     }
 }
 
-export function extrairDados() {
+export async function extrairDados(nomeParam) {
     const produto = estadoDoCarrinho()
-    const { nome, total } = produto
+    let { nome, total } = produto
 
+    if (!nome || !total) {
+        const produtoCompleto = await descricaoCompleta(nomeParam)
+        nome = produtoCompleto.products[0].title
+        total = produtoCompleto.products[0].price
 
+    }
     if (!nome || !total) {
         throw new Error("Produto inválido: nome e preço são obrigatórios")
     }

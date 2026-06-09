@@ -41,6 +41,7 @@ window.addEventListener('hashchange', () => {
 })
 
 window.addEventListener('DOMContentLoaded', () => {
+    navegacao("/MarketHub/")
     router()
     getPesquisaInput().addEventListener('keyup', handlePesquisar)
     getIconeMenu()?.addEventListener('click', toggleIconeMenu)
@@ -73,7 +74,7 @@ async function botaoVerMais(nome) {
 }
 
 async function botaoComprar(nome) {
-    const { produto, preco } = await extrairDados()
+    const { produto, preco } = await extrairDados(nome)
 
     const resposta = await fetch('/api/checkout', {
         method: 'POST',
